@@ -13,7 +13,18 @@ public static class Arrays
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
 
-        return []; // replace this return statement with your own
+        // Step 1: Create an array of doubles with the given length
+        double[] result = new double[length];
+
+        // Step 2: Use a loop to fill each index with the correct multiple of 'number'
+        // The first element should be 1 * number, then 2 * number, etc., up to length
+        for (int i = 0; i < length; i++)
+        {
+            result[i] = number * (i + 1); // index 0 → number * 1, index 1 → number * 2, etc.
+        }
+
+        // Step 3: Return the filled array
+        return result;
     }
 
     /// <summary>
@@ -29,5 +40,27 @@ public static class Arrays
         // Remember: Using comments in your program, write down your process for solving this problem
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
+
+        // Step 1: Understand that rotating right by 'amount' means
+        // the last 'amount' elements move to the front.
+
+        // Step 2: Use GetRange to get the last 'amount' elements
+        List<int> tail = data.GetRange(data.Count - amount, amount);
+
+        // Step 3: Use GetRange to get the remaining elements from the front
+        List<int> head = data.GetRange(0, data.Count - amount);
+
+        // Step 4: Clear the original list
+        data.Clear();
+
+        // Step 5: Add the tail first (rotated to front), then the head
+        data.AddRange(tail);
+        data.AddRange(head);
+
+        // Step 6: Done! The data list has been modified in place
+
+
+
     }
+
 }
