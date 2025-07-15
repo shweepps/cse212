@@ -4,7 +4,7 @@
 /// in the queue is saved to be returned and then they are placed back into the back of the queue.  Thus,
 /// each person stays in the queue and is given turns.  When a person is added to the queue, 
 /// a turns parameter is provided to identify how many turns they will be given.  If the turns is 0 or
-/// less than they will stay in the queue forever.  If a person is out of turns then they will 
+/// less then they will stay in the queue forever.  If a person is out of turns then they will 
 /// not be added back into the queue.
 /// </summary>
 public class TakingTurnsQueue
@@ -37,17 +37,23 @@ public class TakingTurnsQueue
         {
             throw new InvalidOperationException("No one in the queue.");
         }
-        else
-        {
-            Person person = _people.Dequeue();
-            if (person.Turns > 1)
-            {
-                person.Turns -= 1;
-                _people.Enqueue(person);
-            }
 
-            return person;
+        Person person = _people.Dequeue();
+
+        // Infinite turns (turns == 0 or less): re-add without decrementing
+        if (person.Turns <= 0)
+        {
+            _people.Enqueue(person);
         }
+        // If they still have more than 1 turn, decrement and re-add
+        else if (person.Turns > 1)
+        {
+            person.Turns -= 1;
+            _people.Enqueue(person);
+        }
+        // If turns == 1, they are not re-added (this is their last turn)
+
+        return person;
     }
 
     public override string ToString()
