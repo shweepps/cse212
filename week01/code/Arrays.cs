@@ -57,7 +57,8 @@ public static class Arrays
         data.AddRange(tail);
         data.AddRange(head);
 
-        // Step 6: Done! The data list has been modified in place
+        // Step 6: Done! The data list has been modified
+        //  in place
 
 
 
